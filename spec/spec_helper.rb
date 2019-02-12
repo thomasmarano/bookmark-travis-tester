@@ -16,7 +16,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     connection = PG.connect(dbname: 'bookmark_manager_test')
-    connection.exec("CREATE TABLE bookmarks (id SERIAL PRIMARY KEY, username VARCHAR(15) UNIQUE, email VARCHAR(40) UNIQUE, password VARCHAR(10), name VARCHAR(15));")
+    connection.exec("CREATE TABLE bookmarks (id SERIAL PRIMARY KEY, url VARCHAR, title VARCHAR);")
   end
 
   config.before(:each) do
