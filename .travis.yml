@@ -2,14 +2,12 @@ language: ruby
 rvm:
   - 2.5.1
 
-env:
-  - DB=postgresql
-
 script:
-  - ENVIRONMENT=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare
-  - bundle exec rake
+  - mkdir -p spec && bundle exec rspec spec
+
+before_install:
+- sudo apt-get update -qq
+- sudo apt-get install -qq postgresql-server-dev-9.3
 
 before_script:
-  - cp config/database.travis.yml config/database.yml
-  - psql -c 'create database bookmark_manager_test' -U postgres
+  - psql -c 'create database bookmark_manager_test;' -U postgres
