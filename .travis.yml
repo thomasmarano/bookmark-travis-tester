@@ -1,9 +1,9 @@
 language: ruby
 rvm:
-  -2.5.1
+  - 2.5.1
 
 env:
-  -DB=postgresql
+  - DB=postgresql
 
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
