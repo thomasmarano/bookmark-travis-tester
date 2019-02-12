@@ -2,6 +2,8 @@ language: ruby
 rvm:
   - 2.5.1
 
+
+
 script:
   - mkdir -p spec && bundle exec rspec spec
 
@@ -9,7 +11,13 @@ before_install:
 - sudo apt-get update -qq
 - sudo apt-get install -qq postgresql-server-dev-9.3
 
+postgresql: &postgresql
+  adapter: postgresql
+  username: postgres
+  password:
+  database: bookmark_manager_test
+  min_messages: ERROR
+  
 before_script:
-  - psql -c 'create database bookmark_manager_test;' -U postgres
-  - psql -c '\c bookmark_manager_test;' -U postgres
-  - psql -c 'create table bookmarks(id SERIAL PRIMARY KEY, name VARCHAR);' -U postgres
+  - "psql -c 'create database bookmark_manager_test;' -U postgres"
+  - "rake db:migrate"
